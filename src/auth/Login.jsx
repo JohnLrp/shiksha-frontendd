@@ -14,7 +14,8 @@ const Login = () => {
 
   // Already logged in → redirect
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    window.location.href = "https://app.shikshacom.com";
+    return null;
   }
 
   const handleSubmit = async (e) => {
