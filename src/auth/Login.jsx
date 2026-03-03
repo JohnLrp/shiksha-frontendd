@@ -16,21 +16,27 @@ const Login = () => {
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
   }
-
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   setError("");
   setSubmitting(true);
 
   try {
-    await login(email, password);
-    navigate("/", { replace: true });
+    const user = await login(email, password);
+
+    if (user.role === "teacher") {
+      window.location.href = "https://teacher.shikshacom.com";
+    } else {
+      window.location.href = "https://app.shikshacom.com";
+    }
+
   } catch (err) {
-    setError(err); // ✅ THIS is the fix
+    setError(err.message || "Login failed");
   } finally {
     setSubmitting(false);
   }
 };
+  
 
 
   return (
