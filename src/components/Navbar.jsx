@@ -116,35 +116,37 @@ const Navbar = () => {
         <div className="header-right">
           <div className="header-auth">
             {isAuthenticated && user ? (
-              <>
-                <span className="header-user-name">{displayName}</span>
+  <div className="header-auth">
+    <button
+      type="button"
+      className="header-dashboard-btn"
+      onClick={handleDashboard}
+    >
+      Dashboard
+    </button>
 
-                <button
-                  type="button"
-                  className="header-dashboard-btn"
-                  onClick={handleDashboard}
-                >
-                  Dashboard
-                </button>
+    <div className="header-user-row">
+      <span className="header-user-name">{displayName}</span>
 
-                <button
-                  type="button"
-                  className="header-login-btn"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to="/login" className="header-login-btn">
-                  Login
-                </Link>
-                <Link to="/signup" className="header-signup-btn">
-                  Signup
-                </Link>
-              </>
-            )}
+      <button
+        type="button"
+        className="header-login-btn"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+) : (
+  <>
+    <Link to="/login" className="header-login-btn">
+      Login
+    </Link>
+    <Link to="/signup" className="header-signup-btn">
+      Signup
+    </Link>
+  </>
+)}
           </div>
         </div>
       </header>
