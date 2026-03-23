@@ -86,9 +86,8 @@
 /* Auth buttons row */
 .header-auth {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
+  align-items: center;
+  gap: 12px;
 }
 
 /* Login – plain text style */
@@ -508,6 +507,14 @@
 
 .header-login-btn:hover {
   background-color: #084c30;
+}
+
+
+.header-auth-loggedin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
 }
 
 .header-user-row {

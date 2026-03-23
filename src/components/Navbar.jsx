@@ -115,8 +115,8 @@ const Navbar = () => {
 
         <div className="header-right">
           <div className="header-auth">
-           {isAuthenticated && user ? (
-  <div className="header-auth">
+          {isAuthenticated && user ? (
+  <div className="header-auth-loggedin">
     <button
       type="button"
       className="header-dashboard-btn"
@@ -138,14 +138,14 @@ const Navbar = () => {
     </div>
   </div>
 ) : (
-  <>
+  <div className="header-auth">
     <Link to="/login" className="header-login-btn">
       Login
     </Link>
     <Link to="/signup" className="header-signup-btn">
       Signup
     </Link>
-  </>
+  </div>
 )}
           </div>
         </div>
