@@ -9,7 +9,8 @@ export const NotificationProvider = ({ children }) => {
   const fetchNotifications = useCallback(async () => {
     try {
       const data = await getNotifications();
-      setNotifications(data);
+      const items = data.results || data;
+      setNotifications(Array.isArray(items) ? items : []);
     } catch {
       // Not logged in or API error — ignore
     }
