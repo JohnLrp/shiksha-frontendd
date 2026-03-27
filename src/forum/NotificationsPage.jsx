@@ -76,7 +76,7 @@ export default function NotificationsPage() {
                     {notifications.map((n) => (
                         <div
                             key={n.id}
-                            className={`notification-card ${n.is_read ? " unread" : " "}`}
+                            className={`notification-card ${!n.is_read ? "unread" : ""}`}
                             onClick={() => handleClick(n)}
                         >
                             <div className="notification-title">{n.message}</div>
