@@ -1,17 +1,42 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { courseCards, CourseCard } from './Courses';
 import ComingSoon from './ComingSoon';
 import '../css/CoursePreview.css';
+import '../css/Courses.css';
 
 const TABS = ['Online', 'Classroom Training', 'Software Development'];
+
+const BOARDS = [
+  { id: 'CBSE',              title: 'CBSE',              desc: 'Central Board of Secondary Education — National curriculum.' },
+  { id: 'MBSC',              title: 'MBSC',              desc: 'Madhya Pradesh Board of Secondary Education.' },
+  { id: 'State Board',       title: 'State Board',       desc: 'State-specific board of secondary education.' },
+  { id: 'Other State Boards',title: 'Other State Boards',desc: 'State-specific curriculum and syllabus.' },
+];
+
+const BoardCard = ({ board, onClick }) => (
+  <div className="course-card" onClick={onClick}>
+    <div className="course-card-img" />
+    <div className="course-card-body">
+      <h3 className="course-card-title">{board.title}</h3>
+      <p className="course-card-desc">{board.desc}</p>
+      <div className="course-card-footer">
+        <span style={{ flex: 1 }} />
+        <button
+          className="course-arrow-btn"
+          onClick={(e) => { e.stopPropagation(); onClick(); }}
+        >→</button>
+      </div>
+    </div>
+  </div>
+);
 
 const CoursePreview = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Online');
 
-  const handleArrow = (course) => {
-    navigate('/courses', { state: { selectedCourse: course } });
+  // Navigate to /courses and pass the selected board so it starts from class page
+  const handleBoardClick = (board) => {
+    navigate('/courses', { state: { selectedBoard: board.id } });
     window.scrollTo(0, 0);
   };
 
@@ -34,11 +59,18 @@ const CoursePreview = () => {
       {activeTab === 'Online' ? (
         <div className="preview-grid-wrap">
           <div className="preview-grid">
-            {courseCards.slice(0, 4).map((course) => (
-              <CourseCard key={course.id} course={course} onArrowClick={handleArrow} />
+            {BOARDS.map((board) => (
+              <BoardCard
+                key={board.id}
+                board={board}
+                onClick={() => handleBoardClick(board)}
+              />
             ))}
           </div>
-          <button className="preview-show-all-btn" onClick={() => { navigate('/courses'); window.scrollTo(0, 0); }}>
+          <button
+            className="preview-show-all-btn"
+            onClick={() => { navigate('/courses'); window.scrollTo(0, 0); }}
+          >
             Show all
           </button>
         </div>

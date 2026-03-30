@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import '../css/SubjectList.css';
 
 const SubjectList = ({ course, board, onSubjectSelect, onBack }) => {
+  const navigate = useNavigate();
+
   if (!course || !course.topics) return null;
 
   return (
@@ -8,7 +11,6 @@ const SubjectList = ({ course, board, onSubjectSelect, onBack }) => {
       <div className="courses-full-header" style={{ position: 'relative' }}>
         <button className="board-back-btn" onClick={onBack}>← Back</button>
 
-        {/* Shows "Class 9 (CBSE)" or "Class 11 (Arts) (MBSC)" etc. */}
         <h1 className="courses-full-title">
           {course.title}{board ? ` (${board})` : ''}
         </h1>
@@ -39,6 +41,21 @@ const SubjectList = ({ course, board, onSubjectSelect, onBack }) => {
             </button>
           </div>
         ))}
+
+        {/* Buy footer */}
+        <div className="subject-list-footer">
+          <span className="subject-list-price">{course.price}</span>
+          <button
+            className="subject-list-buy-btn"
+            onClick={() =>
+              navigate('/payment', {
+                state: { className: course.title, price: course.price },
+              })
+            }
+          >
+            Buy Course
+          </button>
+        </div>
       </div>
     </div>
   );

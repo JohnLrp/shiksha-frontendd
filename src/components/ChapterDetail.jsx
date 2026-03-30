@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import '../css/ChapterDetail.css';
 
 const ChapterDetail = ({ topic, course, onBack }) => {
-  const navigate = useNavigate();
-
   if (!topic) return null;
 
   return (
@@ -17,12 +14,10 @@ const ChapterDetail = ({ topic, course, onBack }) => {
       <div className="chapter-detail-wrap">
         <div className="chapter-detail-box">
 
-          {/* Textbook label */}
           <div className="chapter-textbook-label">
-             {topic.textbook}
+            {topic.textbook}
           </div>
 
-          {/* Chapter table */}
           <table className="chapter-table">
             <thead>
               <tr>
@@ -39,21 +34,6 @@ const ChapterDetail = ({ topic, course, onBack }) => {
               ))}
             </tbody>
           </table>
-
-          {/* Footer with price + buy button */}
-          <div className="chapter-detail-footer">
-            <span className="chapter-detail-price">{course.price}</span>
-            <button
-              className="course-buy-button"
-              onClick={() =>
-                navigate('/payment', {
-                  state: { className: course.title, price: course.price },
-                })
-              }
-            >
-              Buy
-            </button>
-          </div>
 
         </div>
       </div>

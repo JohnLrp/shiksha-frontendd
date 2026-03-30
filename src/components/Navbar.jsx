@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { FiUser, FiArrowUpRight, FiLogOut } from "react-icons/fi";
+import { FiArrowUpRight, FiLogOut } from "react-icons/fi";
 import "../css/Navbar.css";
 
 import { useLanguage } from "../contexts/LanguageContext";
@@ -15,7 +15,6 @@ const Navbar = () => {
   const [fontSize, setFontSize] = useState(1);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [profileOpen, setProfileOpen] = useState(false);
   const profileMenuRef = useRef(null);
 
   const toggleMobileMenu = () => {
@@ -38,14 +37,11 @@ const Navbar = () => {
         profileMenuRef.current &&
         !profileMenuRef.current.contains(event.target)
       ) {
-        setProfileOpen(false);
+        // no dropdown to close anymore
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   if (loading) return null;
@@ -64,62 +60,42 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    setProfileOpen(false);
     navigate("/login", { replace: true });
   };
 
   const handleDashboard = () => {
     if (!user) return;
-
     const roles = Array.isArray(user?.roles) ? user.roles : [];
     const normalizedRoles = roles.map((r) => String(r).toLowerCase());
     const singleRole = String(user?.role || "").toLowerCase();
-
-    const isTeacher =
-      normalizedRoles.includes("teacher") || singleRole === "teacher";
-
-    const isStudent =
-      normalizedRoles.includes("student") || singleRole === "student";
-
-    setProfileOpen(false);
+    const isTeacher = normalizedRoles.includes("teacher") || singleRole === "teacher";
 
     if (isTeacher) {
       window.location.href = "https://teacher.shikshacom.com/teacher/dashboard";
-      return;
-    }
-
-    if (isStudent) {
+    } else {
       window.location.href = "https://app.shikshacom.com/";
-      return;
     }
-
-    window.location.href = "https://app.shikshacom.com/";
   };
 
   const displayName = user?.email || "My Account";
 
   return (
     <>
+      {/* ── Top Strip ── */}
       <div className="top-strip">
         <marquee width="90%" direction="left" height="30px" scrollAmount="10">
           <span>Hurry Up!!! Admission is going on.</span>
           <span> | New session starts from 2026 | </span>
           <span className="blink">Register Now!</span>
         </marquee>
-
         <div className="strip-controls">
-          <button onClick={decreaseFont} className="accessibility-btn">
-            A-
-          </button>
-          <button onClick={increaseFont} className="accessibility-btn">
-            A+
-          </button>
-          <button onClick={switchLanguage} className="language-btn">
-            {t("language")}
-          </button>
+          <button onClick={decreaseFont} className="accessibility-btn">A-</button>
+          <button onClick={increaseFont} className="accessibility-btn">A+</button>
+          <button onClick={switchLanguage} className="language-btn">{t("language")}</button>
         </div>
       </div>
 
+      {/* ── Main Header ── */}
       <header className="main-header">
         <div className="header-left">
           <Link to="/" className="brand-link">
@@ -133,63 +109,29 @@ const Navbar = () => {
 
         <div className="header-right">
           {isAuthenticated && user ? (
+            /* ── Logged-in: email + Logout button ── */
             <div className="header-profile-wrap" ref={profileMenuRef}>
               <span className="header-user-name">{displayName}</span>
-
               <button
                 type="button"
-                className="header-profile-trigger"
-                onClick={() => setProfileOpen((prev) => !prev)}
-                aria-label="Open profile menu"
+                className="header-logout-pill"
+                onClick={handleLogout}
               >
-                <FiUser size={26} />
+                <FiLogOut size={14} />
+                Logout
               </button>
-
-              {profileOpen && (
-  <div className="header-profile-menu">
-
-    <div className="header-profile-top">
-      <FiUser size={35}/>
-    </div>
-
-    <div className="header-profile-divider"></div>
-
-    <button
-      type="button"
-      className="header-profile-menu-item"
-      onClick={handleDashboard}
-    >
-      <span>Go to Dashboard</span>
-
-      <FiArrowUpRight className="header-profile-menu-icon"/>
-    </button>
-
-    <button
-      type="button"
-      className="header-profile-menu-item"
-      onClick={handleLogout}
-    >
-      <span>Logout</span>
-
-      <FiLogOut className="header-profile-menu-icon"/>
-    </button>
-
-  </div>
-)}
             </div>
           ) : (
+            /* ── Logged-out: Login + Signup ── */
             <div className="header-auth">
-              <Link to="/login" className="header-login-btn">
-                Login
-              </Link>
-              <Link to="/signup" className="header-signup-btn">
-                Signup
-              </Link>
+              <Link to="/login" className="header-login-btn">Login</Link>
+              <Link to="/signup" className="header-signup-btn">Signup</Link>
             </div>
           )}
         </div>
       </header>
 
+      {/* ── Navbar ── */}
       <nav className="navbar navbar-pc">
         <button
           className={`hamburger-btn${mobileOpen ? " open" : ""}`}
@@ -203,148 +145,81 @@ const Navbar = () => {
 
         <ul className={`nav-menu${mobileOpen ? " mobile-open" : ""}`}>
           <li>
-            <NavLink to="/" end onClick={closeMobileMenu}>
-              {t("home")}
-            </NavLink>
+            <NavLink to="/" end onClick={closeMobileMenu}>{t("home")}</NavLink>
           </li>
 
-          <li
-            className={`nav-item dropdown${
-              openDropdown === "about" ? " mobile-dropdown-open" : ""
-            }`}
-          >
-            <NavLink to="/about" onClick={closeMobileMenu}>
-              {t("about")}
-            </NavLink>
+          <li className={`nav-item dropdown${openDropdown === "about" ? " mobile-dropdown-open" : ""}`}>
+            <NavLink to="/about" onClick={closeMobileMenu}>{t("about")}</NavLink>
             <button
               className="mobile-dropdown-arrow"
               onClick={() => handleDropdownToggle("about")}
               aria-label="Toggle about menu"
-            >
-              ▾
-            </button>
+            >▾</button>
             <ul className="dropdown-menu">
-              <li>
-                <NavLink to="/vision" onClick={closeMobileMenu}>
-                  {t("vision")}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/mission" onClick={closeMobileMenu}>
-                  {t("mission")}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/values" onClick={closeMobileMenu}>
-                  {t("values")}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/why-shiksha" onClick={closeMobileMenu}>
-                  {t("whyShiksha")}
-                </NavLink>
-              </li>
+              <li><NavLink to="/vision" onClick={closeMobileMenu}>{t("vision")}</NavLink></li>
+              <li><NavLink to="/mission" onClick={closeMobileMenu}>{t("mission")}</NavLink></li>
+              <li><NavLink to="/values" onClick={closeMobileMenu}>{t("values")}</NavLink></li>
+              <li><NavLink to="/why-shiksha" onClick={closeMobileMenu}>{t("whyShiksha")}</NavLink></li>
             </ul>
           </li>
 
           <li className="nav-item dropdown">
-            <NavLink to="/courses" onClick={closeMobileMenu}>
-              {t("courses")}
-            </NavLink>
+            <NavLink to="/courses" onClick={closeMobileMenu}>{t("courses")}</NavLink>
           </li>
 
           <li>
-            <NavLink to="/upcoming" onClick={closeMobileMenu}>
-              Placements
-            </NavLink>
+            <NavLink to="/general-studies" onClick={closeMobileMenu}>{t("generalStudies")}</NavLink>
           </li>
 
-          <li>
-            <NavLink to="/general-studies" onClick={closeMobileMenu}>
-              {t("generalStudies")}
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/forum" onClick={closeMobileMenu}>
-              {t("forum")}
-            </NavLink>
-          </li>
-
-          <li
-            className={`nav-item dropdown${
-              openDropdown === "counselling" ? " mobile-dropdown-open" : ""
-            }`}
-          >
-            <NavLink to="/counselling" onClick={closeMobileMenu}>
-              {t("counselling")}
-            </NavLink>
+          {/* Others dropdown */}
+          <li className={`nav-item dropdown${openDropdown === "others" ? " mobile-dropdown-open" : ""}`}>
+            <span className="nav-label">Others</span>
             <button
               className="mobile-dropdown-arrow"
-              onClick={() => handleDropdownToggle("counselling")}
-              aria-label="Toggle counselling menu"
-            >
-              ▾
-            </button>
+              onClick={() => handleDropdownToggle("others")}
+              aria-label="Toggle others menu"
+            ></button>
             <ul className="dropdown-menu">
               <li>
-                <NavLink to="/counselling" onClick={closeMobileMenu}>
-                  {t("Career")}
-                </NavLink>
+                <NavLink to="/upcoming" onClick={closeMobileMenu}>Placements</NavLink>
               </li>
-              <li>
-                <NavLink to="/counselling" onClick={closeMobileMenu}>
-                  {t("Admission in India")}
-                </NavLink>
+              <li className="nav-item dropdown nested-dropdown">
+                <span className="nav-label">Counselling </span>
+                <ul className="dropdown-menu nested-menu">
+                  <li><NavLink to="/counselling" onClick={closeMobileMenu}>Career</NavLink></li>
+                  <li><NavLink to="/counselling" onClick={closeMobileMenu}>Admission in India</NavLink></li>
+                  <li><NavLink to="/counselling" onClick={closeMobileMenu}>Admission in Abroad</NavLink></li>
+                </ul>
               </li>
-              <li>
-                <NavLink to="/counselling" onClick={closeMobileMenu}>
-                  {t("Admission in Abroad")}
-                </NavLink>
+              <li className="nav-item dropdown nested-dropdown">
+                <span className="nav-label">Training </span>
+                <ul className="dropdown-menu nested-menu">
+                  <li><NavLink to="/training" onClick={closeMobileMenu}>Industrial</NavLink></li>
+                  <li><NavLink to="/training" onClick={closeMobileMenu}>Specialized</NavLink></li>
+                </ul>
               </li>
-            </ul>
-          </li>
-
-          <li
-            className={`nav-item dropdown${
-              openDropdown === "training" ? " mobile-dropdown-open" : ""
-            }`}
-          >
-            <NavLink to="/training" onClick={closeMobileMenu}>
-              {t("training")}
-            </NavLink>
-            <button
-              className="mobile-dropdown-arrow"
-              onClick={() => handleDropdownToggle("training")}
-              aria-label="Toggle training menu"
-            >
-              ▾
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <NavLink to="/training" onClick={closeMobileMenu}>
-                  {t("industrial")}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/training" onClick={closeMobileMenu}>
-                  {t("specialized")}
-                </NavLink>
-              </li>
+              <li><NavLink to="/insight" onClick={closeMobileMenu}>{t("insight")}</NavLink></li>
+              <li><NavLink to="/forum" onClick={closeMobileMenu}>{t("forum")}</NavLink></li>
             </ul>
           </li>
 
           <li>
-            <NavLink to="/insight" onClick={closeMobileMenu}>
-              {t("insight")}
-            </NavLink>
+            <NavLink to="/contact" onClick={closeMobileMenu}>{t("contact")}</NavLink>
           </li>
 
-          <li>
-            <NavLink to="/contact" onClick={closeMobileMenu}>
-              {t("contact")}
-            </NavLink>
-          </li>
+          {/* ── Go to Dashboard button — only shown when logged in ── */}
+          {isAuthenticated && user && (
+            <li className="nav-dashboard-li">
+              <button
+                type="button"
+                className="nav-dashboard-btn"
+                onClick={handleDashboard}
+              >
+                go to dashboard
+                <FiArrowUpRight size={15} />
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     </>

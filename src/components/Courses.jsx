@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../css/Courses.css';
 import SubjectList from './SubjectList';
 import ChapterDetail from './ChapterDetail';
 import { courseData } from '../data/courseData';
-
-// ── Data ────────────────────────────────────────────────────────────────────
 
 const BOARDS = ['CBSE', 'MBSC', 'State Board', 'Other State Boards'];
 
@@ -12,15 +11,16 @@ const CLASSES = [
   { id: 'class8',          title: 'Class 8',            desc: 'Complete Class 8 academic program.' },
   { id: 'class9',          title: 'Class 9',            desc: 'Complete Class 9 academic program.' },
   { id: 'class10',         title: 'Class 10',           desc: 'Complete Class 10 academic program.' },
-  { id: 'class11science',  title: 'Class 11 (Science)', desc: 'Physics, Chemistry, Biology, Maths.' },
+  { id: 'class11science',  title: 'Class 11 (Science)',  desc: 'Physics, Chemistry, Biology, Maths.' },
   { id: 'class11commerce', title: 'Class 11 (Commerce)', desc: 'Accountancy, Business Studies, Economics.' },
-  { id: 'class11arts',     title: 'Class 11 (Arts)',    desc: 'History, Political Science, Geography.' },
-  { id: 'class12science',  title: 'Class 12 (Science)', desc: 'Physics, Chemistry, Biology, Maths.' },
+  { id: 'class11arts',     title: 'Class 11 (Arts)',     desc: 'History, Political Science, Geography.' },
+  { id: 'class12science',  title: 'Class 12 (Science)',  desc: 'Physics, Chemistry, Biology, Maths.' },
   { id: 'class12commerce', title: 'Class 12 (Commerce)', desc: 'Accountancy, Business Studies, Economics.' },
-  { id: 'class12arts',     title: 'Class 12 (Arts)',    desc: 'History, Political Science, Geography.' },
+  { id: 'class12arts',     title: 'Class 12 (Arts)',     desc: 'History, Political Science, Geography.' },
 ];
 
-// ── CourseCard — exported for CoursePreview.jsx ─────────────────────────────
+// ── Exported for CoursePreview.jsx (kept for compatibility)
+export const courseCards = Object.values(courseData);
 export const CourseCard = ({ course, onArrowClick }) => (
   <div className="course-card" onClick={() => onArrowClick(course)}>
     <div className="course-card-img" />
@@ -38,10 +38,7 @@ export const CourseCard = ({ course, onArrowClick }) => (
   </div>
 );
 
-// ── courseCards — exported for CoursePreview.jsx ────────────────────────────
-export const courseCards = Object.values(courseData);
-
-// ── Reusable Page Card ──────────────────────────────────────────────────────
+//Reusable Page Card 
 const PageCard = ({ title, desc, price, onClick }) => (
   <div className="course-card" onClick={onClick}>
     <div className="course-card-img" />
@@ -62,7 +59,7 @@ const PageCard = ({ title, desc, price, onClick }) => (
   </div>
 );
 
-// ── Page Header ─────────────────────────────────────────────────────────────
+// Page Header
 const PageHeader = ({ title, subtitle, onBack }) => (
   <div className="courses-full-header" style={{ position: 'relative' }}>
     {onBack && (
@@ -73,9 +70,14 @@ const PageHeader = ({ title, subtitle, onBack }) => (
   </div>
 );
 
-// ── Main Courses Component ──────────────────────────────────────────────────
+// Main Courses Component
 const Courses = () => {
-  const [selectedBoard,  setSelectedBoard]  = useState(null);
+  const location = useLocation();
+
+  // If navigated from homepage board card, start on class page directly
+  const initialBoard = location.state?.selectedBoard || null;
+
+  const [selectedBoard,  setSelectedBoard]  = useState(initialBoard);
   const [selectedClass,  setSelectedClass]  = useState(null);
   const [activeCourse,   setActiveCourse]   = useState(null);
   const [activeTopic,    setActiveTopic]    = useState(null);
@@ -91,33 +93,30 @@ const Courses = () => {
     setActiveTopic(null);
   };
 
-  // ── Board selected ────────────────────────────────────────────────────────
+  // Board selected
   const handleBoardSelect = (board) => {
     setSelectedBoard(board);
   };
 
-  // ── Class selected → load subjects directly ───────────────────────────────
+  // ── Class selected → subjects directly
   const handleClassSelect = (cls) => {
     setSelectedClass(cls);
-    const course = courseData[cls.id];
+    const course = courseData[cls.id]; // all boards use same data for now
     if (course) setActiveCourse(course);
   };
 
-  // ── Subject selected ──────────────────────────────────────────────────────
+  // ── Subject selected ─
   const handleSubjectSelect = (topic) => {
     setActiveTopic(topic);
   };
 
-  // ── Back from Subject list → back to class page ───────────────────────────
   const handleSubjectBack = () => {
     setActiveCourse(null);
     setActiveTopic(null);
     setSelectedClass(null);
   };
 
-  // ── Render ────────────────────────────────────────────────────────────────
-
-  // Level 4 — Chapter detail
+  // Chapter detail
   if (activeTopic) {
     return (
       <ChapterDetail
@@ -128,26 +127,25 @@ const Courses = () => {
     );
   }
 
-  // Level 3 — Subject list
+  // Subject list
   if (activeCourse) {
     return (
       <SubjectList
         course={activeCourse}
-        board={selectedBoard}          
         onSubjectSelect={handleSubjectSelect}
         onBack={handleSubjectBack}
       />
     );
   }
 
-  // Level 2 — Class selection
+  // Class selection
   if (selectedBoard) {
     return (
       <div className="courses-page">
         <PageHeader
           title={`${selectedBoard} — Select Class`}
           subtitle="Choose your class to view the lesson plan"
-          onBack={() => setSelectedBoard(null)}
+          onBack={resetAll}
         />
         <div className="courses-grid-wrap">
           <div className="courses-grid">
@@ -166,7 +164,7 @@ const Courses = () => {
     );
   }
 
-  // Level 1 — Board selection
+  //Board selection
   return (
     <div className="courses-page">
       <PageHeader
@@ -182,7 +180,7 @@ const Courses = () => {
               desc={
                 board === 'CBSE'         ? 'Central Board of Secondary Education — National curriculum.' :
                 board === 'MBSC'         ? 'Madhya Pradesh Board of Secondary Education.' :
-                board === 'State Board' ? 'State-specific curriculum and syllabus.' :
+                board === 'State Board' ? 'State-specific board of secondary education.' :
                                           'State-specific curriculum and syllabus.'
               }
               onClick={() => handleBoardSelect(board)}

@@ -3,7 +3,7 @@ import '../css/LowerGrid.css';
 const LowerGrid = () => {
   return (
     <div className="lower-grid">
-      {/* STATS SECTION */}
+      {/* STATS SECTION 
       <section className="stats-section">
         <div className="stat">
           <div className="number">31+</div>
@@ -18,6 +18,7 @@ const LowerGrid = () => {
           <div className="label">Labs</div>
         </div>
       </section>
+      */}
 
       {/* WHY CHOOSE SHIKSHA HEADING */}
       <section className="why-choose-heading">

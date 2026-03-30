@@ -1,88 +1,252 @@
-/* ==============================
-   About Full Page
-   ============================== */
+/* ═══════════════════════════════════════════
+   ABOUT PAGE
+═══════════════════════════════════════════ */
 .about-page {
-  background: #d6dfd7;
+  background: #e8e0cc;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
 
-/* Each section shares horizontal padding and vertical rhythm */
+/* ── Section base ── */
 .ap-section {
-  padding: 56px 60px 64px;
+  padding: 80px 40px 88px;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(132, 104, 39, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 173, 51, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Alternating section background */
+.ap-alt {
+  background-color: #ddd5be;
+  background-image:
+    linear-gradient(rgba(132, 104, 39, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 173, 51, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Ambient glow per section */
+.ap-section::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(18, 80, 39, 0.1), transparent 70%);
+  top: -160px;
+  right: -80px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ap-section-inner {
+  max-width: 1160px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL ANIMATION
+═══════════════════════════════════════════ */
+.ap-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.6s ease var(--delay, 0ms),
+    transform 0.6s ease var(--delay, 0ms);
+}
+
+.ap-reveal.ap-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Hero badge ── */
+.ap-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(18, 80, 39, 0.1);
+  border: 1px solid rgba(18, 80, 39, 0.2);
+  border-radius: 100px;
+  padding: 7px 18px;
+  margin-bottom: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #125027;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.ap-badge-dot {
+  width: 7px;
+  height: 7px;
+  background: #ff8f01;
+  border-radius: 50%;
+  animation: badgepulse 2s infinite;
+}
+
+@keyframes badgepulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.35);
+  }
+}
+
+/* ── Section label (small uppercase above heading) ── */
+.ap-section-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #ff8f01;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 /* ── Headings ── */
 .ap-heading {
-  font-size: 2.1rem;
-  font-weight: 800;
-  color: #111;
-  margin: 0 0 24px 0;
-  text-align: center;
-  letter-spacing: 0.2px;
-}
-
-/* ── About Us heading override ── */
-.ap-heading-main {
-  font-size: 3.2rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
   font-weight: 900;
-}
-
-/* ── Intro paragraph (centered on background) ── */
-.ap-intro {
-  max-width: 860px;
-  font-size: 0.97rem;
-  font-weight: 500;
-  line-height: 1.75;
-  color: #1a1a1a;
+  color: #125027;
+  margin: 0 0 22px;
   text-align: center;
-  margin: 0 0 40px 0;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
 }
 
-/* ══════════════════════════════
-   Section 1 – About Us
-   ══════════════════════════════ */
-.ap-about-us .ap-intro {
-  margin-bottom: 32px;
+.ap-heading-main {
+  font-size: clamp(40px, 6vw, 64px);
+  letter-spacing: -3px;
+  background: linear-gradient(90deg, #125027, #1b9c85);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+/* ── Intro paragraph ── */
+.ap-intro {
+  max-width: 680px;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: rgba(14, 28, 15, 0.58);
+  text-align: center;
+  margin: 0 0 44px;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 1 — IMAGE ROW
+═══════════════════════════════════════════ */
 .ap-img-row {
   display: flex;
   gap: 10px;
   justify-content: center;
   flex-wrap: nowrap;
-  max-width: 1200px;
   width: 100%;
 }
 
-.ap-img-row img {
+.ap-img-wrap {
   flex: 1 1 0;
   min-width: 0;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 210px;
+  cursor: pointer;
+  transform: translateY(0);
+  transition:
+    transform 0.36s ease,
+    box-shadow 0.36s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  animation: imgSlideIn 0.6s ease calc(var(--i) * 90ms) both;
 }
 
-/* ══════════════════════════════
-   Shared card (Vision & Value)
-   ══════════════════════════════ */
+@keyframes imgSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ap-img-wrap:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  z-index: 2;
+}
+
+.ap-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.ap-img-wrap:hover img {
+  transform: scale(1.08);
+}
+
+.ap-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(12, 28, 14, 0.55)
+  );
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
+
+.ap-img-wrap:hover .ap-img-overlay {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════
+   VISION / VALUE CARD
+═══════════════════════════════════════════ */
 .ap-card {
-  background: #faf7ee;
-  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(132, 104, 39, 0.16);
+  border-radius: 20px;
   padding: 40px 44px;
-  max-width: 1200px;
   width: 100%;
   box-sizing: border-box;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.ap-card:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
 }
 
 .ap-row {
   display: flex;
-  gap: 36px;
+  gap: 40px;
   align-items: flex-start;
 }
 
@@ -95,69 +259,104 @@
 }
 
 .ap-card-text p {
-  font-size: 0.92rem;
-  line-height: 1.7;
-  color: #1a1a1a;
-  margin: 0 0 14px 0;
+  font-size: 13.5px;
+  line-height: 1.82;
+  color: rgba(14, 28, 15, 0.68);
+  margin: 0 0 14px;
 }
 
 .ap-label {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 8px 0 !important;
+  font-size: 12px;
+  font-weight: 800;
+  font-family: "Montserrat", sans-serif;
+  color: #125027;
+  margin: 0 0 8px !important;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .ap-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 14px 0;
+  margin: 0 0 16px;
 }
 
 .ap-list li {
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: #1a1a1a;
+  font-size: 13px;
+  line-height: 1.72;
+  color: rgba(14, 28, 15, 0.62);
   padding-left: 18px;
   position: relative;
   margin-bottom: 6px;
+  transition: color 0.2s;
 }
 
 .ap-list li::before {
-  content: "·";
+  content: "▸";
   position: absolute;
-  left: 4px;
-  font-size: 1.4rem;
-  line-height: 1.2;
-  color: #1a1a1a;
+  left: 0;
+  color: #1b9c85;
+  font-size: 11px;
+  top: 3px;
+}
+
+.ap-list li:hover {
+  color: rgba(14, 28, 15, 0.88);
 }
 
 .ap-list li strong {
   font-weight: 700;
+  color: #125027;
 }
 
+/* Card image */
 .ap-card-img {
-  flex: 0 0 360px;
+  flex: 0 0 340px;
   align-self: stretch;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
 }
 
 .ap-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
   display: block;
+  transition: transform 0.5s ease;
 }
 
-/* ══════════════════════════════
-   Section 3 – Mission pillars
-   ══════════════════════════════ */
+.ap-card-img:hover img {
+  transform: scale(1.05);
+}
+
+/* Shine effect on hover */
+.ap-img-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.ap-card-img:hover .ap-img-shine {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════
+   MISSION PILLARS
+═══════════════════════════════════════════ */
 .ap-pillars {
   display: flex;
   justify-content: center;
-  gap: 44px;
+  gap: 28px;
   flex-wrap: wrap;
-  max-width: 1200px;
   width: 100%;
 }
 
@@ -165,78 +364,165 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 200px;
+  width: 210px;
   gap: 16px;
+  padding: 28px 18px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(132, 104, 39, 0.14);
+  border-radius: 18px;
+  cursor: default;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.ap-pillar:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(18, 80, 39, 0.14);
+  border-color: rgba(27, 156, 133, 0.3);
 }
 
 .ap-circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   flex-shrink: 0;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.ap-pillar:hover .ap-circle {
+  transform: scale(1.12) rotate(-4deg);
 }
 
 .ap-pillar-label {
-  font-size: 0.86rem;
-  color: #1a1a1a;
+  font-size: 12.5px;
+  color: rgba(14, 28, 15, 0.65);
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
+  font-weight: 500;
 }
 
-/* ══════════════════════════════
-   Section 5 – Why Choose cards
-   ══════════════════════════════ */
+/* ═══════════════════════════════════════════
+   WHY CHOOSE CARDS
+═══════════════════════════════════════════ */
+.ap-why-section::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 143, 1, 0.08), transparent 70%);
+  bottom: -120px;
+  left: -60px;
+  pointer-events: none;
+}
+
 .ap-why-cards {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 1200px;
   width: 100%;
 }
 
 .ap-why-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 26px 22px 30px;
-  flex: 1 1 200px;
-  max-width: 280px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  background: rgba(8, 24, 12, 0.7);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  padding: 28px 24px 26px;
+  flex: 1 1 220px;
+  max-width: 268px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Number watermark */
+.ap-why-num {
+  font-family: "Montserrat", sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.04);
+  position: absolute;
+  top: -8px;
+  right: 14px;
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.ap-why-card:hover .ap-why-num {
+  color: rgba(29, 202, 171, 0.1);
+}
+
+.ap-why-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.26);
+  border-color: rgba(29, 202, 171, 0.28);
 }
 
 .ap-why-title {
-  font-size: 0.97rem;
-  font-weight: 700;
-  color: #111;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
 }
 
 .ap-why-desc {
-  font-size: 0.86rem;
-  line-height: 1.65;
-  color: #333;
+  font-size: 12.5px;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.48);
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
-/* ══════════════════════════════
-   Responsive
-   ══════════════════════════════ */
-@media (max-width: 720px) {
-  .ap-section {
-    padding: 40px 20px 48px;
-  }
+/* Animated bottom line */
+.ap-why-line {
+  height: 2px;
+  background: linear-gradient(90deg, #1b9c85, #1dcaab);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  margin-top: auto;
+}
 
+.ap-why-card:hover .ap-why-line {
+  transform: scaleX(1);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .ap-section {
+    padding: 60px 24px 68px;
+  }
   .ap-card {
-    padding: 28px 22px;
+    padding: 28px 24px;
   }
 
   .ap-row,
@@ -247,31 +533,38 @@
   .ap-card-img {
     flex: unset;
     width: 100%;
-    height: 200px;
+    height: 220px;
     align-self: unset;
+  }
+}
+
+@media (max-width: 640px) {
+  .ap-section {
+    padding: 48px 18px 56px;
   }
 
   .ap-img-row {
     flex-wrap: wrap;
   }
 
-  .ap-img-row img {
-    flex: 1 1 40%;
-    height: 140px;
+  .ap-img-wrap {
+    flex: 1 1 42%;
+    height: 130px;
   }
 
   .ap-pillars {
-    gap: 28px;
+    gap: 14px;
   }
 
   .ap-pillar {
-    width: 130px;
+    width: 150px;
+    padding: 20px 14px;
   }
 
   .ap-circle {
-    width: 85px;
-    height: 85px;
-    font-size: 1.9rem;
+    width: 58px;
+    height: 58px;
+    font-size: 1.5rem;
   }
 
   .ap-why-cards {
@@ -282,9 +575,5 @@
   .ap-why-card {
     max-width: 100%;
     width: 100%;
-  }
-
-  .ap-heading {
-    font-size: 1.75rem;
   }
 }

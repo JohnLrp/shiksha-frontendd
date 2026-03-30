@@ -27,7 +27,19 @@ const Contact = () => {
           <p>
             House No. - 73A<br />
             Maruti Vihar<br />
-            Gurgaon, Haryana - 122002
+            Gurgaon, Haryana - 122002<br />
+          </p>
+        </div>
+
+        <div className="contact2-card">
+          <img src={location_icon} alt="" />
+          <h2>Head Office</h2>
+          <p>
+            CM Engineering Solution<br />
+            Sangthanmawii Building<br />
+            2nd Floor<br />
+            Mualpui Bethel<br />
+            Aizawl , Mizoram - 796005<br />
           </p>
         </div>
 
@@ -44,7 +56,8 @@ const Contact = () => {
           <img src={phone_icon} alt="" />
           <h2>Phone</h2>
           <p>
-             +91 3893570403
+             +91 3893570403 <br/>
+              0389-2300225
           </p>
         </div>
       </section>

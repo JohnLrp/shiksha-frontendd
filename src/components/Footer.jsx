@@ -37,9 +37,7 @@ const Footer = () => {
         <div className="footer-footer-nav">
           <div className="footer-nav-group">
             <ul>
-              <li><a href="#help">Help Center</a></li>
               <li><a href="/faq">FAQ</a></li>
-              <li><a href="/terms">Privacy Policy</a></li>
               <li><a href="/terms">Terms of Policy</a></li>
               <li><a href="/feedback">Feedback</a></li>
             </ul>
