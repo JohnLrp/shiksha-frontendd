@@ -59,14 +59,14 @@ const subjectCards = [
 ];
 
 const updates = [
-  { id: 1, title: 'Class 12 Science batch session starting soon', accent: '#ff8f01' },
-  { id: 2, title: 'JEE Mains mock test series opens next April', accent: '#f87171' },
-  { id: 3, title: 'Live Chemistry session with Prof. Ramesh today', accent: '#1dcaab' },
-  { id: 4, title: 'NCERT Class 11 Maths solutions now available', accent: '#a78bfa' },
+  { id: 1, title: 'April Session Starting soon', accent: '#ff8f01' },
+  { id: 2, title: 'CBSE / NCERT Course from Class 8 to Class 12', accent: '#f87171' },
+  { id: 3, title: 'MBSC Course from Class 8 to Class 12', accent: '#1dcaab' },
+  { id: 4, title: 'Higher education for all stream', accent: '#a78bfa' },
   { id: 5, title: 'Free guest access — no registration needed', accent: '#34d399' },
-  { id: 6, title: 'Board results out — 94% scored above 85%', accent: '#fbbf24' },
-  { id: 7, title: 'Class 10 Hindi batch enrollments now open', accent: '#60a5fa' },
-  { id: 8, title: 'New recorded lectures added for Class 9 Science', accent: '#fb923c' },
+  { id: 6, title: 'New Live Session features just added', accent: '#fbbf24' },
+  { id: 7, title: 'Enrollment open now', accent: '#60a5fa' },
+  { id: 8, title: 'New and Profound Instructor joining us', accent: '#fb923c' },
 ];
 
 const CARD_HEIGHT = 72;
@@ -149,7 +149,6 @@ const Hero = () => {
 
             <div className="up-header">
               <div className="up-header-left">
-                <div className="up-live-dot"></div>
                 <span className="up-title">Latest Updates</span>
               </div>
             </div>
