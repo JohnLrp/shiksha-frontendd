@@ -50,6 +50,8 @@ import ThreadDetailPage from '../forum/ThreadDetailPage';
 import CreateThreadPage from '../forum/CreateThreadPage';
 import NotificationsPage from '../forum/NotificationsPage';
 import { useAuth } from "../contexts/AuthContext";
+import Blogs from "./Blogs";
+import BlogDetail from "./BlogDetail";
 
 function Page({ children }) {
   return (
@@ -139,6 +141,8 @@ function App() {
         <Route path="/courses" element={<Page><Courses /></Page>} />
         <Route path="/placements" element={<Page><Placements /></Page>} />
         <Route path="/general-studies" element={<Page><GeneralStudies /></Page>} />
+        <Route path="/blogs" element={<Page><Blogs /></Page>} />
+<Route path="/blogs/:id" element={<Page><BlogDetail /></Page>} />
         <Route path="/counselling" element={<Page><Counselling /></Page>} />
         <Route path="/insight" element={<Page><Insight /></Page>} />
         <Route path="/current-affairs" element={<Page><CurrentAffairs /></Page>} />

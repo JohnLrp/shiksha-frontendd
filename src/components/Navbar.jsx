@@ -237,12 +237,26 @@ const Navbar = () => {
 </button>
             </li>
 
-            <li>
-              <NavLink to="/general-studies" onClick={closeMobileMenu}>
-                {t("generalStudies")}
-              </NavLink>
-            </li>
+   <li className="nav-item dropdown">
+  <NavLink to="/general-studies" onClick={closeMobileMenu}>
+    General Studies
+  </NavLink>
 
+  <ul className="dropdown-menu">
+  <li>
+    <NavLink to="/blogs" onClick={closeMobileMenu}>
+      Blogs
+    </NavLink>
+  </li>
+
+  <li>
+    <NavLink to="/current-affairs" onClick={closeMobileMenu}>
+      Current Affairs
+    </NavLink>
+  </li>
+</ul>
+            </li>
+            
             <li
               className={`nav-item dropdown${
                 openDropdown === "others" ? " mobile-dropdown-open" : ""
@@ -283,32 +297,33 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </li>
-                <li>
 
-                  <li className="nav-item dropdown nested-dropdown">
-                  <span className="nav-labels">Counselling</span>
-                  <ul className="dropdown-menu nested-menu">
-                    <li>
-                      <NavLink to="/counselling" onClick={closeMobileMenu}>
-                        Career
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/counselling" onClick={closeMobileMenu}>
-                        Admission in India
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/counselling" onClick={closeMobileMenu}>
-                        Admission in Abroad
-                      </NavLink>
-                    </li>
-                  </ul>
-                </li>
-                  <NavLink to="/upcoming" onClick={closeMobileMenu}>
-                    Placements
-                  </NavLink>
-                </li>
+                <li className="nav-item dropdown nested-dropdown">
+  <span className="nav-labels">Counselling</span>
+  <ul className="dropdown-menu nested-menu">
+    <li>
+      <NavLink to="/counselling" onClick={closeMobileMenu}>
+        Career
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to="/counselling" onClick={closeMobileMenu}>
+        Admission in India
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to="/counselling" onClick={closeMobileMenu}>
+        Admission in Abroad
+      </NavLink>
+    </li>
+  </ul>
+</li>
+
+<li>
+  <NavLink to="/upcoming" onClick={closeMobileMenu}>
+    Placements
+  </NavLink>
+</li>
               </ul>
             </li>
             <li>
