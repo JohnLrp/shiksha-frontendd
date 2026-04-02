@@ -17,7 +17,7 @@
   padding: 30px 28px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
   position: relative;
-  overflow: hidden;
+
 }
 
 /* Top accent bar */
@@ -52,7 +52,7 @@
   border-collapse: collapse;
   margin-bottom: 28px;
   border-radius: 12px;
-  overflow: hidden;
+
 }
 
 .chapter-table th,
