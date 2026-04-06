@@ -15,19 +15,21 @@ import class11SciImg from '../assets/courses/class11-Sci.png';
 import class12ArtsImg from '../assets/courses/class12-Arts.png';
 import class12ComImg from '../assets/courses/class12-Com.png';
 import class12SciImg from '../assets/courses/class12-Sci.png';
+import centralImg from '../assets/courses/central.jpeg';
+import stateImg from '../assets/courses/state.jpeg';
 
 const BOARD_GROUPS = [
   {
     id: 'central',
     title: 'Central Board',
     desc: 'National Curriculum Boards',
-    image: cbseImg,
+    image: centralImg,
   },
   {
     id: 'state',
     title: 'State Board',
     desc: 'Regional Curriculum Boards',
-    image: mbseImg,
+    image: stateImg,
   },
 ];
 
