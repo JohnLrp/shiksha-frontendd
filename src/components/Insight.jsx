@@ -385,7 +385,7 @@ const Insight = () => {
               </article>
             ) : (
               <article className="insight-article-content">
-                <h1>Welcome to Shiksha Insights</h1>
+                <h1>Welcome to ShikshaCom Explore</h1>
                 <p>
                   Search for any topic above to get comprehensive information.
                 </p>
@@ -482,7 +482,7 @@ const Insight = () => {
                 </div>
               ) : (
                 <div className="insight-infobox">
-                  <h3>Shiksha Insights</h3>
+                  <h3>ShikshaCom Explore</h3>
                   <img src="/Shiksha.png" alt="Shiksha" />
                   <p>Search for any topic to see structured information.</p>
                   <h4>Key Highlights</h4>

@@ -26,8 +26,8 @@ const WhyShiksha = () => {
       <h1 className="why-heading">Why Choose ShikshaCom?</h1>
 
       <p className="why-intro">
-        At Shiksha, we offer a unique learning experience designed to meet the
-        needs of modern learners. Choose Shiksha for an education that is not
+        At ShikshaCom, we offer a unique learning experience designed to meet the
+        needs of modern learners. Choose ShikshaCom for an education that is not
         only effective but also enjoyable and accessible from anywhere.
       </p>
 

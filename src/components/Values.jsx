@@ -16,7 +16,7 @@ const Values = () => {
         {/* Right: text */}
         <div className="values-text">
           <p>
-            At Shiksha, our values are the foundation of everything we do.
+            At ShikshaCom, our values are the foundation of everything we do.
             These values guide our decisions and inspire our team to create a
             positive impact in the world of education.
           </p>

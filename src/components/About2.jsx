@@ -82,7 +82,7 @@ const About2 = () => {
           <div className="ap-card ap-row ap-reveal" ref={ref}>
             <div className="ap-card-text">
               <p>
-                At Shiksha, our vision is to provide learners with the skills and
+                At ShikshaCom, our vision is to provide learners with the skills and
                 knowledge they need to thrive in the modern world. We aim to make
                 education accessible, engaging, and effective for everyone,
                 regardless of their background or location.
@@ -110,7 +110,7 @@ const About2 = () => {
           <div className="ap-section-label ap-reveal" ref={ref}>Mission</div>
           <h2 className="ap-heading ap-reveal" ref={ref}>Our Mission</h2>
           <p className="ap-intro ap-reveal" ref={ref}>
-            At Shiksha, our mission is to deliver high-quality, accessible education using innovative technology and expert guidance.
+            At ShikshaCom, our mission is to deliver high-quality, accessible education using innovative technology and expert guidance.
             We are committed to empowering learners of all ages and backgrounds to achieve their full potential.
           </p>
           <div className="ap-pillars">
@@ -143,7 +143,7 @@ const About2 = () => {
             </div>
             <div className="ap-card-text">
               <p>
-                At Shiksha, our values are the foundation of everything we do.
+                At ShikshaCom, our values are the foundation of everything we do.
                 These values guide our decisions and inspire our team to create a
                 positive impact in the world of education.
               </p>
@@ -171,8 +171,8 @@ const About2 = () => {
           <div className="ap-section-label ap-reveal" ref={ref}>Why Us</div>
           <h2 className="ap-heading ap-reveal" ref={ref}>Why Choose ShikshaCom?</h2>
           <p className="ap-intro ap-reveal" ref={ref}>
-            At Shiksha, we offer a unique learning experience designed to meet the needs of modern learners.
-            Choose Shiksha for education that is effective, enjoyable, and accessible from anywhere.
+            At ShikshaCom, we offer a unique learning experience designed to meet the needs of modern learners.
+            Choose ShikshaCom for education that is effective, enjoyable, and accessible from anywhere.
           </p>
           <div className="ap-why-cards">
             {whyFeatures.map((f, i) => (

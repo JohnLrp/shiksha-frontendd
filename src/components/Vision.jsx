@@ -10,7 +10,7 @@ const Vision = () => {
       <div className="vision-card">
         <div className="vision-text">
           <p>
-            At Shiksha, our vision is to provide learners with the skills and
+            At ShikshaCom, our vision is to provide learners with the skills and
             knowledge they need to thrive in the modern world. We aim to make
             education accessible, engaging, and effective for everyone,
             regardless of their background or location.

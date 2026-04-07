@@ -13,9 +13,9 @@ const Contact = () => {
     <div className="contact2-container">
       {/* Header */}
       <header className="contact2-header">
-        <h1>Contact Shiksha</h1>
+        <h1>Contact ShikshaCom</h1>
         <p>
-          Get in touch with us! Here is how you can reach Shiksha.
+          Get in touch with us! Here is how you can reach ShikshaCom.
         </p>
       </header>
 
@@ -25,6 +25,8 @@ const Contact = () => {
           <img src={location_icon} alt="" />
           <h2>Head Office</h2>
           <p>
+            CM Engineering And Solution<br />
+            Engineering, Planning And Project Management<br/>
             House No. - 73A<br />
             Maruti Vihar<br />
             Gurgaon, Haryana - 122002<br />
@@ -33,12 +35,11 @@ const Contact = () => {
 
         <div className="contact2-card">
           <img src={location_icon} alt="" />
-          <h2>Head Office</h2>
+          <h2>Regional Office Address</h2>
           <p>
-            CM Engineering Solution<br />
-            Sangthanmawii Building<br />
-            2nd Floor<br />
-            Mualpui Bethel<br />
+            Hualngohmun<br />
+            Vengchhak<br />
+            Near World Bank Road<br />
             Aizawl , Mizoram - 796005<br />
           </p>
         </div>
