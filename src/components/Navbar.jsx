@@ -23,6 +23,7 @@ const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [openNestedDropdown, setOpenNestedDropdown] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [hideTopStrip, setHideTopStrip] = useState(false);
 
   const profileMenuRef = useRef(null);
 
@@ -73,6 +74,17 @@ const Navbar = () => {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setHideTopStrip(window.scrollY > 10);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   if (loading) return null;
 
   const increaseFont = () => {
@@ -120,29 +132,33 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="site-fixed-header">
-        <div className="top-strip">
-          <marquee width="90%" direction="left" height="30px" scrollAmount="10">
-            <span>Hurry Up!!! Admission is going on.</span>
-            <span> | New session starts from 2026 | </span>
-            <span className="blink">Register Now!</span>
-          </marquee>
+      <div className={`top-strip ${hideTopStrip ? "top-strip--hidden" : ""}`}>
+        <marquee width="90%" direction="left" height="30px" scrollAmount="10">
+          <span>Hurry Up!!! Admission is going on.</span>
+          <span> | New session starts from 2026 | </span>
+          <span className="blink">Register Now!</span>
+        </marquee>
 
-          {/*
-          <div className="strip-controls">
-            <button onClick={decreaseFont} className="accessibility-btn">
-              A-
-            </button>
-            <button onClick={increaseFont} className="accessibility-btn">
-              A+
-            </button>
-            <button onClick={switchLanguage} className="language-btn">
-              {t("language")}
-            </button>
-          </div>
-          */}
+        {/*
+        <div className="strip-controls">
+          <button onClick={decreaseFont} className="accessibility-btn">
+            A-
+          </button>
+          <button onClick={increaseFont} className="accessibility-btn">
+            A+
+          </button>
+          <button onClick={switchLanguage} className="language-btn">
+            {t("language")}
+          </button>
         </div>
+        */}
+      </div>
 
+      <div
+        className={`site-fixed-header ${
+          hideTopStrip ? "site-fixed-header--top" : ""
+        }`}
+      >
         <header className="main-header">
           <div className="header-left">
             <Link to="/" className="brand-link">
@@ -447,7 +463,7 @@ const Navbar = () => {
         </nav>
       </div>
 
-      <div className="site-fixed-header-space"></div>
+      <div className={`site-fixed-header-space ${hideTopStrip ? "site-fixed-header-space--small" : ""}`}></div>
     </>
   );
 };
