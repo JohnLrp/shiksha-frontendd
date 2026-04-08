@@ -21,9 +21,11 @@
     linear-gradient(rgba(132, 104, 39, 0.15) 1px, transparent 1px),
     linear-gradient(90deg, rgba(201, 173, 51, 0.08) 1px, transparent 1px);
   background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%,
-      black 30%,
-      transparent 100%);
+  mask-image: radial-gradient(
+    ellipse 80% 80% at 50% 50%,
+    black 30%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
@@ -488,7 +490,7 @@
 
 .ff-step-label.active,
 .ff-step-label.done {
-  color: #1dcaab;
+  color: #ff8f01;
 }
 
 .ff-step-connector {
@@ -507,7 +509,7 @@
 }
 
 .ff-step-line.done {
-  background: #1dcaab;
+  background: #ff8f01;
 }
 
 /* ═══════════════════════════════════════════
@@ -533,15 +535,15 @@
 }
 
 .ff-yesno-btn:hover {
-  border-color: #1dcaab;
-  color: #1dcaab;
+  border-color: #5e3908;
+  color: #ff8f01;
 }
 
 .ff-yesno-btn.active {
-  border-color: #1dcaab;
-  color: #1dcaab;
+  border-color: #75460a;
+  color: #ff8f01;
   background: rgba(29, 202, 171, 0.08);
-  box-shadow: 0 0 0 1.5px #1dcaab;
+  box-shadow: 0 0 0 1.5px #ff8f01;
 }
 
 /* ═══════════════════════════════════════════
@@ -575,7 +577,9 @@
   color: #888888;
   font-size: 11px;
   font-family: "Poppins", sans-serif;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   overflow: hidden;
 }
 
