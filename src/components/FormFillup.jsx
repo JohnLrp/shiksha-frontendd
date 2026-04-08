@@ -59,18 +59,11 @@ const TEACHER_FIELDS = {
   id_number: "",
   id_proof_front: null,
   id_proof_back: null,
-  subject: "",
-  boards: [],
-  classes: [],
-  streams: [],
-  skill_name: "",
-  skill_description: "",
-  skill_related_subject: "",
-  skill_supporting_image: null,
-  skill_supporting_video: null,
 };
 
 const STUDENT_STEPS = ["Basic Details", "Parent Information", "Academic Information"];
+const TEACHER_STEPS_COURSE = ["Basic Details", "Professional Background", "Course Application", "Verification"];
+const TEACHER_STEPS_SKILL = ["Basic Details", "Professional Background", "Specialized Skill", "Verification"];
 
 const FormFillup = () => {
   const navigate = useNavigate();
@@ -92,6 +85,7 @@ const FormFillup = () => {
   const [loading, setLoading] = useState(true);
   const [existingFiles, setExistingFiles] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
+  const [teacherFormType, setTeacherFormType] = useState(null); // "course" | "skill"
   const [photoPreview, setPhotoPreview] = useState(null);
 
   useEffect(() => {
@@ -286,8 +280,51 @@ const FormFillup = () => {
     return Object.keys(errs).length === 0;
   };
 
+  const validateTeacherStep = (step) => {
+    const errs = {};
+    if (step === 1) {
+      if (!form.first_name?.trim()) errs.first_name = "First name is required";
+      if (!form.last_name?.trim()) errs.last_name = "Last name is required";
+      if (!form.phone?.trim()) errs.phone = "Phone number is required";
+      if (!form.date_of_birth) errs.date_of_birth = "Date of birth is required";
+      if (!form.state) errs.state = "State is required";
+      if (!form.district) errs.district = "District is required";
+      if (!form.city_town?.trim()) errs.city_town = "City/Town is required";
+    }
+    if (step === 2) {
+      if (!form.highest_degree) errs.highest_degree = "Highest degree is required";
+      if (!form.field_of_study?.trim()) errs.field_of_study = "Field of study is required";
+      if (!form.year_of_completion) errs.year_of_completion = "Year of completion is required";
+      if (!form.experience_range) errs.experience_range = "Teaching experience is required";
+      if (!form.employment_status) errs.employment_status = "Employment status is required";
+    }
+    if (step === 3) {
+      if (teacherFormType === "course") {
+        if (!form.subject) errs.subject = "Subject is required";
+        if (!form.boards.length) errs.boards = "At least one board is required";
+        if (!form.classes.length) errs.classes = "At least one class is required";
+        if ((form.classes.includes("11") || form.classes.includes("12")) && !form.streams.length)
+          errs.streams = "Stream is required for Class 11-12";
+      }
+      if (teacherFormType === "skill") {
+        if (!form.skill_name?.trim()) errs.skill_name = "Skill name is required";
+        if (!form.skill_description?.trim()) errs.skill_description = "Skill description is required";
+        if (!form.skill_related_subject) errs.skill_related_subject = "Related subject is required";
+      }
+    }
+    if (step === 4) {
+      if (!form.govt_id_type) errs.govt_id_type = "Government ID type is required";
+      if (!form.id_number?.trim()) errs.id_number = "ID number is required";
+      if (!form.id_proof_front && !existingFiles.id_proof_front)
+        errs.id_proof_front = "ID proof is required";
+    }
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
   const handleContinue = () => {
-    if (validateStep(currentStep)) {
+    const valid = formType === "teacher" ? validateTeacherStep(4) : validateStep(3);
+    if (valid) {
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -893,7 +930,7 @@ const FormFillup = () => {
                 <label>Subject</label>
                 <select name="subject" value={form.subject} onChange={handleChange}>
                   <option value="">Select Subject</option>
-                  {["Mathematics","Physics","Chemistry","Biology","English","Hindi","Social Science","History","Geography","Economics","Computer Science","Accountancy","Business Studies","Political Science","Other"].map((s) => (
+                  {["Mathematics", "Physics", "Chemistry", "Biology", "English", "Hindi", "Social Science", "History", "Geography", "Economics", "Computer Science", "Accountancy", "Business Studies", "Political Science", "Other"].map((s) => (
                     <option key={s} value={s.toLowerCase().replace(/ /g, "_")}>{s}</option>
                   ))}
                 </select>
@@ -914,7 +951,7 @@ const FormFillup = () => {
               <div className="ff-field">
                 <label>Classes (select at least one)</label>
                 <div className="ff-multi-select">
-                  {["8","9","10","11","12"].map((c) => (
+                  {["8", "9", "10", "11", "12"].map((c) => (
                     <label key={c} className="ff-checkbox-row">
                       <input type="checkbox" checked={form.classes.includes(c)} onChange={() => handleMultiCheck("classes", c)} />
                       Class {c}
@@ -954,7 +991,7 @@ const FormFillup = () => {
                 <label>Related Subject</label>
                 <select name="skill_related_subject" value={form.skill_related_subject} onChange={handleChange}>
                   <option value="">Select Subject</option>
-                  {["Mathematics","Physics","Chemistry","Biology","English","Hindi","Social Science","History","Geography","Economics","Computer Science","Accountancy","Business Studies","Political Science","Other"].map((s) => (
+                  {["Mathematics", "Physics", "Chemistry", "Biology", "English", "Hindi", "Social Science", "History", "Geography", "Economics", "Computer Science", "Accountancy", "Business Studies", "Political Science", "Other"].map((s) => (
                     <option key={s} value={s.toLowerCase().replace(/ /g, "_")}>{s}</option>
                   ))}
                 </select>
