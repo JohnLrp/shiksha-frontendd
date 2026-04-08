@@ -29,7 +29,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await api.post("/refresh/");
+        await api.post("/accounts/refresh/");
         return api(originalRequest);
       } catch {
         window.location.href = "https://www.shikshacom.com/login";
