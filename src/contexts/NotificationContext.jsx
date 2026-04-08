@@ -1,27 +1,34 @@
 import { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
 import { getNotifications, markAllNotificationsRead, markNotificationRead } from "../api/forum";
+import { useAuth } from "./AuthContext";
 
 const NotificationContext = createContext(null);
 
 export const NotificationProvider = ({ children }) => {
+  const { isAuthenticated } = useAuth();
   const [notifications, setNotifications] = useState([]);
 
   const fetchNotifications = useCallback(async () => {
+    if (!isAuthenticated) return;
     try {
       const data = await getNotifications();
       const items = data.results || data;
       setNotifications(Array.isArray(items) ? items : []);
     } catch {
-      // Not logged in or API error — ignore
+      // API error — ignore
     }
-  }, []);
+  }, [isAuthenticated]);
 
-  // Fetch notifications on mount and every 30 seconds
+  // Fetch notifications only when authenticated, poll every 30 seconds
   useEffect(() => {
+    if (!isAuthenticated) {
+      setNotifications([]);
+      return;
+    }
     fetchNotifications();
     const interval = setInterval(fetchNotifications, 30000);
     return () => clearInterval(interval);
-  }, [fetchNotifications]);
+  }, [isAuthenticated, fetchNotifications]);
 
   const addNotification = (notification) => {
     const newNotification = {
