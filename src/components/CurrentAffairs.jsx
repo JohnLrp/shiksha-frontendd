@@ -16,16 +16,12 @@ const CurrentAffairs = () => {
     setLoading(true);
     setError(null);
     setNews([]);
-
     try {
       const response = await fetch(`${API_BASE}/api/news/top-headlines/`);
-
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
-
       const data = await response.json();
-
       const transformedArticles = data.articles.map((article) => ({
         title: article.title,
         description: article.description,
@@ -34,7 +30,6 @@ const CurrentAffairs = () => {
         publishedAt: article.publishedAt,
         url: article.url,
       }));
-
       setNews(transformedArticles);
     } catch (error) {
       console.error("Error fetching current affairs:", error);
@@ -50,7 +45,6 @@ const CurrentAffairs = () => {
       <p className="page-description">
         Stay updated with the latest news and current affairs from around the world
       </p>
-
       {loading ? (
         <div className="loading">
           <p>Loading current affairs...</p>
@@ -58,10 +52,7 @@ const CurrentAffairs = () => {
       ) : error ? (
         <div className="error">
           <p>{error}</p>
-          <button
-            onClick={fetchCurrentAffairs}
-            className="retry-btn"
-          >
+          <button onClick={fetchCurrentAffairs} className="retry-btn">
             Retry
           </button>
         </div>
@@ -95,13 +86,8 @@ const CurrentAffairs = () => {
                       {new Date(article.publishedAt).toLocaleDateString()}
                     </span>
                   </div>
-                  
-                    href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="read-more-link"
-                  >
-                    Read Full Article →
+                  <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more-link">
+                    Read Full Article
                   </a>
                 </div>
               </div>
