@@ -25,7 +25,7 @@ const Contact = () => {
           <img src={location_icon} alt="" />
           <h2>Head Office</h2>
           <p>
-            House No. - 14731A<br/>
+            House No. - 1473A<br/>
             Maruti Vihar<br />
             Gurgaon, Haryana - 122002<br />
           </p>
@@ -54,8 +54,9 @@ const Contact = () => {
           <img src={phone_icon} alt="" />
           <h2>Phone</h2>
           <p>
-             +91 3893570403 (Haryana)<br/>
-               +0389-2300225 (Mizoram)
+            +0124-4255138 (Haryana)<br/>
+            +0389-2300225 (Mizoram)<br/>
+            +91 3893570403 (Mizoram)
           </p>
         </div>
       </section>

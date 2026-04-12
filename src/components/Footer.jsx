@@ -20,12 +20,18 @@ const Footer = () => {
             <div className="footer-info-column">
               <h4>Address</h4>
               <p>
-                House no - 73A, Maruti Vihar
+                House no - 1473A
+                <br />
+                Maruti Vihar
                 <br />
                 Gurgaon, Haryana
                 <br />
                 Pin - 122002
                 <br />
+                <br />
+                Hualngohmun Vengchhak
+                <br />
+                Near World Bank Road
                 <br />
                 Aizawl, Mizoram
                 <br />
@@ -43,10 +49,12 @@ const Footer = () => {
                 <br />
                 Gurgaon
                 <br />
-                +91 3893570403
+                +0124-42551378
                 <br />
                 <br />
                 Aizawl
+                <br />
+                +91 3893570403 
                 <br />
                 +0389-2300225
               </p>

@@ -62,9 +62,9 @@
 }
 
 .preview-tab.active {
-  background: #8da692c8;
-  color: #001a0f;
-  box-shadow: 0 4px 16px rgba(27, 156, 133, 0.4);
+  background: #003223;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 50, 35, 0.4);
 }
 
 .preview-tab:hover:not(.active) {
