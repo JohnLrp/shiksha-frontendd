@@ -56,8 +56,17 @@ const Login = () => {
       setIsRedirecting(true);
       setStatusMessage("Login successful! Redirecting...");
 
+      let redirectTo = import.meta.env.VITE_HOME_URL || "https://www.shikshacom.com";
+      try {
+        const stashed = sessionStorage.getItem("post_auth_redirect");
+        if (stashed && stashed.startsWith("/") && !stashed.startsWith("//")) {
+          redirectTo = stashed;
+        }
+        sessionStorage.removeItem("post_auth_redirect");
+      } catch (_) { /* sessionStorage unavailable */ }
+
       setTimeout(() => {
-        window.location.href = import.meta.env.VITE_HOME_URL || "https://www.shikshacom.com";
+        window.location.href = redirectTo;
       }, 2500);
 
     } catch (err) {

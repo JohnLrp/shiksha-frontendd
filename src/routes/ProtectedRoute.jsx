@@ -8,7 +8,13 @@ const ProtectedRoute = ({ children }) => {
   if (loading) return null;
 
   if (!isAuthenticated) {
-    // Redirect to marketing login page
+    try {
+      const here = window.location.pathname + window.location.search;
+      if (here && here.startsWith("/") && !here.startsWith("//")) {
+        sessionStorage.setItem("post_auth_redirect", here);
+      }
+    } catch (_) { /* sessionStorage unavailable */ }
+
     window.location.href = (import.meta.env.VITE_HOME_URL || "https://www.shikshacom.com") + "/login";
     return null;
   }
