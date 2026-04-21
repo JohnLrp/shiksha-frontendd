@@ -119,7 +119,13 @@ const Enroll = () => {
             Our team will verify your payment and approve your enrollment within 24 hours.
             You'll get an email confirmation once approved.
           </p>
-          <button className="enroll-submit" onClick={() => navigate("/dashboard")}>
+          <button
+            className="enroll-submit"
+            onClick={() => {
+              window.location.href =
+                import.meta.env.VITE_APP_URL || "https://app.shikshacom.com/";
+            }}
+          >
             Go to Dashboard
           </button>
         </div>
